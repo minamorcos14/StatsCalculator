@@ -1,0 +1,82 @@
+import math
+
+numList = [10, 12, 12, 34, 5, 25, 26, 8, 45, 55]
+numList2 = [12, 45, 23, 9, 65, 67, 45, 34, 49, 22]
+
+
+def mean(numList):
+    """ Calculates the arithmetic mean of a list of numbers """
+
+    finalMean = 0.0
+
+    for num in numList:
+        finalMean += num
+    finalMean = finalMean / float(len(numList))
+    return finalMean
+    #print "{0:.4f}".format(finalMean)
+
+mean(numList)
+
+
+def median(numList):
+    """ Calculate the median of a list of numbers """
+    """ The middle value in the set """
+
+    tempList = sorted(numList)
+    index = (len(tempList) - 1) // 2
+
+    # If the set has an even number of entries, combine the middle two
+    # Otherwise print the middle value
+    if len(tempList) % 2 == 0:
+        print "{0:.4f}".format((tempList[index] + tempList[index + 1]) / 2.0)
+    else:
+        print tempList[index]
+
+median(numList)
+
+
+ def mode(numList):
+    """ Calculates the mode of a list of numbers """
+    """ The mode is the most common value in a set """
+
+    sortedCount = []
+    # Set up a dictionary (we prefer unique keys) to hold our counts
+    count = {}
+    for num in numList:
+        if num not in count.keys():
+            count[num] = 1
+        else:
+            count[num] += 1
+
+    # Simply print the mode (key with largest value)
+    print max(count, key=count.get)
+
+    # Sort the dictionary by values and print them
+    sortedCount = sorted(count.iteritems(), key = lambda(k,v):v, reverse=True)
+    for k, v in sortedCount:
+        # To print non-uniques only
+        #if v > 1:
+        print "{0}: {1}".format(k, v)
+
+mode(numList)
+
+def standardDeviation(numList):
+    """ Calculate the (population) standard deviation of a mean """
+    """ Distance of a given number from the mean """
+
+    # Call our mean function defined above
+    newMean = float(mean(numList))
+    tempList = [0 for n in range(len(numList))]
+    finalDeviation = 0
+
+    # Create a temp data set with (each value minus the mean) squared
+    for q, r in enumerate(numList):
+        tempList[q] = float((numList[q]-newMean)**2)
+
+    # Pass temp data set to mean() and return its square root
+    finalDeviation = math.sqrt(float(mean(tempList)))
+
+    #print "{0:.4f}".format(finalDeviation)
+    return finalDeviation
+
+standardDeviation(numList)
